@@ -38,10 +38,10 @@ jobs:
         run: go build -v
 
       - name: executing remote ssh commands using password
-      uses: appleboy/ssh-action@v0.1.6
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        password: ${{ secrets.SSH_PWD }}
-        port: ${{ secrets.SSH_PORT }}
-        script: whoami
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PWD }}
+          port: ${{ secrets.SSH_PORT }}
+          script: whoami

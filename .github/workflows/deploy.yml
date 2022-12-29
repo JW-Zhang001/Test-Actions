@@ -1,9 +1,10 @@
 name: 自动部署   # 步骤名称
 
 on:
+  workflow_dispatch:
   push:
     branches:
-      - master          # 当 master 分支发生提交时触发
+      - main
      paths-ignore:      # 避免这些文件改变时触发
        - README.md
        - LICENSE

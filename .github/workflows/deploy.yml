@@ -1,16 +1,25 @@
 name: 自动部署   # 步骤名称
 
+#on:
+#  workflow_dispatch:
+#  push:
+#    branches:
+#      - main
+#     paths-ignore:      # 避免这些文件改变时触发
+#       - README.md
+#       - LICENSE
+##    paths:              # 指定哪些文件改变时触发
+##      - src/**
+##      - package.json
+
 on:
   workflow_dispatch:
   push:
     branches:
       - main
-     paths-ignore:      # 避免这些文件改变时触发
-       - README.md
-       - LICENSE
-#    paths:              # 指定哪些文件改变时触发
-#      - src/**
-#      - package.json
+  pull_request:
+
+
 
 jobs:
   deploy:
@@ -53,7 +62,7 @@ jobs:
 
           # 先用 SSH 命令删除旧文件
           script: |
-#            rm -rf /www/blog/*
+          #            rm -rf /www/blog/*
 
       - name: 部署到服务器
         uses: wlixcc/SFTP-Deploy-Action@v1.0 # 这个是sftp插件

@@ -37,15 +37,11 @@ jobs:
       - name: Build
         run: go build -v
 
-      - name: Action Fabric Deploy
-        uses: jinzhijiang/docker-action-fabric@v1.0.4
-        with:
-          # rsakey: ${{ secrets.SSH_RSA }}
-          password: ${{ secrets.SSH_PWD }}
-          port: ${{ secrets.SSH_PORT }}
-          ip: ${{ secrets.SSH_HOST }}
-          user: ${{ secrets.SSH_USER }}
-          run: |
-            local('pwd')
-            local('ls')
-            run('pwd')
+      - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        password: ${{ secrets.SSH_PWD }}
+        port: ${{ secrets.SSH_PORT }}
+        script: whoami

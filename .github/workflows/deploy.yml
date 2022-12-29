@@ -1,0 +1,64 @@
+name: 自动部署   # 步骤名称
+
+on:
+  push:
+    branches:
+      - master          # 当 master 分支发生提交时触发
+     paths-ignore:      # 避免这些文件改变时触发
+       - README.md
+       - LICENSE
+#    paths:              # 指定哪些文件改变时触发
+#      - src/**
+#      - package.json
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull code
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.19
+          cache: true
+
+      - name: Install dependencies
+        run: |
+          go mod download 
+          go mod tidy
+
+      - name: Test with Go
+        run: go test -json > TestResults-${{ matrix.go-version }}.json
+
+      - name: Upload Go test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: Go-results-${{ matrix.go-version }}
+          path: TestResults-${{ matrix.go-version }}.json
+
+      - name: Build
+        run: go build -v
+
+      - name: SSH 命令删除旧文件
+        uses: appleboy/ssh-action@master
+        with:
+          # 这里配置对应仓库设置的变量，就可以避免服务器配置暴露
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.DEPLOY_KEY }}
+
+          # 先用 SSH 命令删除旧文件
+          script: |
+#            rm -rf /www/blog/*
+
+      - name: 部署到服务器
+        uses: wlixcc/SFTP-Deploy-Action@v1.0 # 这个是sftp插件
+        with:
+          server: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          ssh_private_key: ${{ secrets.DEPLOY_KEY }}
+          local_path: '../../Test-Actions'
+          remote_path: './chaintest/'

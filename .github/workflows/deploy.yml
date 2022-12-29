@@ -37,14 +37,26 @@ jobs:
       - name: Build
         run: go build -v
 
-      - name: 部署到服务器
-        uses: wlixcc/SFTP-Deploy-Action@v1.0 # 这个是sftp插件
-        with:
-          server: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          ssh_private_key: ${{ secrets.DEPLOY_KEY }}
-          local_path: '../../Test-Actions'
-          remote_path: './chaintest/'
+      - name: 发布到阿里云
+          uses: easingthemes/ssh-deploy@v2.1.5
+          env:
+            #私钥
+            SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+            #SCp参数
+            ARGS: "-rltgoDzvO --delete"
+            #源目录
+            SOURCE: "./Test-Actions"
+            #服务器Ip:换成你的服务器iP
+            REMOTE_HOST: ${{ secrets.SSH_HOST }}
+            #用户
+            REMOTE_USER: ${{ secrets.SSH_USERNAME }}
+            #目标地址
+            TARGET: "/home/xingdao/chaintest/"
+
+      作者：Eric223
+      链接：https://juejin.cn/post/7157193707693801508
+      来源：稀土掘金
+      著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
       #      - name: SSH 命令删除旧文件
       #        uses: appleboy/ssh-action@master

@@ -37,30 +37,15 @@ jobs:
       - name: Build
         run: go build -v
 
-      - name: 发布到阿里云
-        uses: easingthemes/ssh-deploy@v2.1.5
-        env:
-          #私钥
-          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
-          #SCp参数
-          ARGS: "-rltgoDzvO --delete"
-          #源目录
-          SOURCE: "./Test-Actions"
-          #服务器Ip:换成你的服务器iP
-          REMOTE_HOST: ${{ secrets.SSH_HOST }}
-          #用户
-          REMOTE_USER: ${{ secrets.SSH_USERNAME }}
-          #目标地址
-          TARGET: "/home/xingdao/chaintest/"
-
-      #      - name: SSH 命令删除旧文件
-      #        uses: appleboy/ssh-action@master
-      #        with:
-      #          # 这里配置对应仓库设置的变量，就可以避免服务器配置暴露
-      #          host: ${{ secrets.SSH_HOST }}
-      #          username: ${{ secrets.SSH_USERNAME }}
-      #          key: ${{ secrets.DEPLOY_KEY }}
-      #
-      #          # 先用 SSH 命令删除旧文件
-      #          script: |
-      #          #            rm -rf /www/blog/*
+      - name: Action Fabric Deploy
+        uses: jinzhijiang/docker-action-fabric@1.0.4
+        with:
+          # rsakey: ${{ secrets.SSH_RSA }}
+          password: ${{ secrets.SSH_PWD }}
+          port: ${{ secrets.SSH_PORT }}
+          ip: ${{ secrets.SSH_HOST }}
+          user: ${{ secrets.SSH_USER }}
+          run: |
+            local('pwd')
+            local('ls')
+            run('pwd')

@@ -3,7 +3,10 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo "build"
+                sh '''
+                go mod tidy
+                go build -o bin/my-app main.go
+                '''
             }
         }
         stage('Test'){

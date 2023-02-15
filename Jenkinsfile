@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                sh 'go build -o /bin/my-app main.go'
             }
         }
         stage('Test') {

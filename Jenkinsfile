@@ -4,8 +4,7 @@ pipeline {
     environment {
         GOROOT = "/var/jenkins_home/go"
         GOBIN = "/var/jenkins_home/go/bin"
-        MAKEBIN = "/var/jenkins_home/make"
-        PATH = "${env.PATH}:${env.GOBIN}:${env.MAKEBIN}"
+        PATH = "${env.PATH}:${env.GOBIN}"
     }
 
     stages {
@@ -22,7 +21,7 @@ pipeline {
         stage('Build') {
             steps {
 //                 sh "go build -o bin/my-app main.go"
-                   sh "make --version"
+                sh "make --version"
             }
         }
     }

@@ -1,10 +1,6 @@
 pipeline{
     // 指定pipeline在哪个slave节点上允许
     agent { label 'master' }
-    // 指定pipeline运行时的一些配置
-    options {
-        timeout(time: 1, unit: 'HOURS')
-    }
     // 自定义的参数
     parameters {
         string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')

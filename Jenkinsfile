@@ -4,8 +4,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                go mod tidy
-                go build -o bin/my-app main.go
+                go version
                 '''
             }
         }

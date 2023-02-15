@@ -21,7 +21,8 @@ pipeline{
     stages {
         stage ("阶段1任务：拉代码") {
             steps {
-                sh ''
+                sh 'git --version'
+                sh 'git checkout dev'
             }
         }
         stage ("阶段2任务：编译代码") {

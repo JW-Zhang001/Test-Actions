@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     stages {
-        stage('pull code') {
+        stage('Env') {
             steps {
-            sh "go version"
+                sh "printenv"
             }
         }
     }

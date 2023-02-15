@@ -2,7 +2,7 @@ pipeline{
     // 指定pipeline在哪个slave节点上允许
     agent { label 'master' }
     // 指定pipeline运行时的一些配置
-    option {
+    options {
         timeout(time: 1, unit: 'HOURS')
     }
     // 自定义的参数

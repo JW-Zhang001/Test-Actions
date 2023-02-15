@@ -26,36 +26,36 @@ pipeline{
         }
         stage ("阶段2任务：编译代码") {
             steps {
-                // 编译代码的具体命令
+                sh 'make'
             }
         }
         stage ("阶段3任务：扫描代码") {
             steps {
-                // 拉代码的具体命令
+                sh 'make'
             }
         }
         stage ("阶段4任务：打包代码") {
             steps {
-                // 打包代码的具体命令
+                sh 'make'
             }
         }
         stage ("阶段5任务：构建推送Docker镜像") {
             steps {
-                // 构建推送Docker镜像的具体命令
+                sh 'make'
             }
         }
         stage ("阶段6任务：部署镜像") {
             steps {
-                // 部署镜像的具体命令
+                sh 'make'
             }
         }
     }
     post {
         success {
-            // 当pipeline构建状态为"success"时要执行的事情
+           sh 'make'
         }
         always {
-            // 无论pipeline构建状态是什么都要执行的事情
+            sh 'make'
         }
     }
 }

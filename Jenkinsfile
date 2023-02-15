@@ -13,5 +13,10 @@ pipeline {
                 sh "printenv"
             }
         }
+        stage('go version') {
+            steps {
+                sh "go version"
+            }
+        }
     }
 }

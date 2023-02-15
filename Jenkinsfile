@@ -1,11 +1,6 @@
-// env.PROJ_DIR='src/learningGo'
-
 node {
     def root = tool name: 'go 1.19.2', type: 'go'
     withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {     // 设置stage运行时的环境变量
-        stage('Init gopath') {
-            sh 'mkdir -p $GOPATH/{bin,pkg,src}'  // go运行环境目录
-        }
         stage('Get code') {
             checkout([                      // git repo
                 $class: 'GitSCM',
@@ -22,17 +17,10 @@ node {
         stage('Build') {
             sh 'go build -o bin/my-app main.go'
         }
-//         stage('Deploy to test') {           // 部署测试环境
-//             input message: 'deploy to test ?', ok: 'De'
-//             echo 'docker run'
-//         }
-//         stage('Deploy to qa') {             // 部署预发布环境
-//             input message: 'deploy to qa ?', ok: 'OK!'
-//             echo 'docker run'
-//         }
-//         stage('Deploy to production') {     // 部署生产环境
-//             input message: 'deploy to production ?', ok: 'OK!'
-//             echo 'docker run'
-//         }
+        stage('Deploy to test') {           // 部署测试环境
+
+
+        }
+
     }
 }

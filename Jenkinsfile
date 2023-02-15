@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('pull code') {
             steps {
-            sh "pull code"
+            sh "go version"
             }
         }
     }

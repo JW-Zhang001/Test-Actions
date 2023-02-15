@@ -1,7 +1,8 @@
 // env.PROJ_DIR='src/learningGo'
 
 node {
-    withEnv(["GOPATH=$WORKSPACE"]) {     // 设置stage运行时的环境变量
+    def root = tool name: 'go 1.19.2', type: 'go'
+    withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {     // 设置stage运行时的环境变量
         stage('Init gopath') {
             sh 'mkdir -p $GOPATH/{bin,pkg,src}'  // go运行环境目录
         }
